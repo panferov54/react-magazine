@@ -4,6 +4,7 @@ import Button from "./Button";
 import SortPopup from "./SortPopup";
 import ItemBlock from "./ItemBlock";
 import LoadingBlock from "./LoadingBlock";
+import CartItem from "./CartItem";
 
 export {
     Button,
@@ -11,5 +12,6 @@ export {
     Categories,
     SortPopup,
     ItemBlock,
-    LoadingBlock
+    LoadingBlock,
+    CartItem
 }

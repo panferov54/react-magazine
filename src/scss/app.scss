@@ -18,6 +18,7 @@ $duration: 0.15s;
 body {
   background-color: $background;
   padding: 50px 0;
+
 }
 
 .wrapper {
@@ -55,8 +56,8 @@ body {
   margin: 0 auto;
 
   &--cart {
-    max-width: 820px;
-    margin: 90px auto;
+    max-width: 1000px;
+    margin: 30px auto;
     .content__title {
       margin: 0;
     }
@@ -250,6 +251,7 @@ body {
         align-items: center;
         justify-content: center;
         width: 210px;
+        margin-bottom: 25px;
 
         border-color: darken($color: $gray-line, $amount: 10);
 
@@ -282,6 +284,7 @@ body {
         font-weight: 600;
         width: 210px;
         padding: 16px;
+        margin-bottom: 25px;
       }
     }
   }

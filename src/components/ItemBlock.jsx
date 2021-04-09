@@ -1,13 +1,14 @@
  import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+ import {Button} from "./index";
 
-function ItemBlock ({name,imageUrl,price,types,sizes}) {
+function ItemBlock ({id,name,imageUrl,price,types,sizes,onAddCart,cartCount}) {
 
     const availableTypes=['тонкое','традиционное'];
     const availableSizes=[26,30,40];
        const [activeType,setActiveType]= React.useState(types[0])
-    const [activeSize,setActiveSize]= React.useState(sizes[0])
+    const [activeSize,setActiveSize]= React.useState(0)
 
     const onSelectType =(index)=>{
            setActiveType(index)
@@ -18,7 +19,18 @@ function ItemBlock ({name,imageUrl,price,types,sizes}) {
 const divStyles={
            margin:'25px auto'
 }
-
+const handleAddItem=()=>{
+           const obj ={
+               id,
+               name,
+               imageUrl,
+               price:newPrice,
+               size:availableSizes[activeSize],
+               type:availableTypes[activeType],
+           }
+           onAddCart(obj)
+}
+    const newPrice= activeSize ===0? price :activeSize===1? price+100:price+170;
 
     return (
         <div className="pizza-block" style={divStyles}>
@@ -55,17 +67,14 @@ const divStyles={
                                     active:activeSize===index,
                                     disabled:!sizes.includes(size)
                                 })}>
-                                { activeType===1?size+2:
-                                    size} см.
+                                { size} см.
                             </li>))
                     }
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price"> {
-                    activeSize===1?Math.floor(((price+1000)/10)+price):activeSize===2?Math.floor(((price+2000)/10)+price):price
-                } ₽</div>
-                <div className="button button--outline button--add">
+                <div className="pizza-block__price"> {newPrice} ₽</div>
+                <Button onClick={handleAddItem} className="button--add" outline>
                     <svg
                         width="12"
                         height="12"
@@ -79,8 +88,8 @@ const divStyles={
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
-                </div>
+                    {cartCount &&  <i>{cartCount}</i>}
+                </Button>
             </div>
         </div>
     );
@@ -92,6 +101,8 @@ ItemBlock.propTypes={
     price:PropTypes.number,
     types:PropTypes.arrayOf(PropTypes.number).isRequired,
     sizes:PropTypes.arrayOf(PropTypes.number).isRequired,
+    onAddCart:PropTypes.func,
+    cartCount:PropTypes.number
 
 };
 ItemBlock.defaultProps={
@@ -100,6 +111,7 @@ ItemBlock.defaultProps={
     sizes:[],
     name:'---',
     imageUrl:'#',
+
 
 };
 
